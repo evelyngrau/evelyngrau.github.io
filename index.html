@@ -13,12 +13,11 @@
 
 <body>
   <header class="navbar">
-    <div class="logo">Evelyn Grau</div>
+    <a href="#about" class="logo">Evelyn Grau</a>
 
     <nav>
       <a href="#about">About</a>
-      <a href="#areas">Areas</a>
-      <a href="#qa">QA</a>
+      <a href="#qa">QA Projects</a>
       <a href="#automation">AI Automation</a>
       <a href="#creative">Creative</a>
       <a href="#certificates">Certificates</a>
@@ -32,7 +31,9 @@
       <div class="hero-content">
         <p class="eyebrow">QA + Automation + AI</p>
 
-        <h1>Building quality with strategy, automation and AI.</h1>
+        <h1 class="magic-title">
+          Building quality with strategy, automation and AI.
+        </h1>
 
         <p class="hero-text">
           I’m Evelyn Grau, a QA Tester with 4+ years of Manual QA experience.
@@ -50,36 +51,28 @@
         </div>
 
         <div class="hero-actions">
-          <a href="#areas" class="button primary">View Portfolio</a>
+          <a href="#qa" class="button primary">View Portfolio</a>
           <a href="#contact" class="button secondary">Contact Me</a>
         </div>
       </div>
     </section>
 
-    <!-- THREE AREAS -->
-    <section id="areas" class="section">
-      <div class="section-title">
-        <p class="eyebrow">Portfolio Structure</p>
-        <h2>Three areas of work</h2>
-        <p>
-          My portfolio is organized into QA projects, AI automation workflows and creative work.
-        </p>
-      </div>
-
+    <!-- THREE MAIN AREAS -->
+    <section class="section">
       <div class="area-grid">
-        <a href="#qa" class="area-card">
+        <a href="#qa" class="area-card neon-card">
           <div class="icon">✓</div>
           <h3>QA Projects</h3>
           <p>Test cases, bug reports, evidence, test plans, Cypress, Postman and ISTQB practice.</p>
         </a>
 
-        <a href="#automation" class="area-card">
+        <a href="#automation" class="area-card neon-card">
           <div class="icon">⚙</div>
           <h3>AI Automation</h3>
           <p>n8n workflows, process optimization, AI-assisted documentation and productivity automations.</p>
         </a>
 
-        <a href="#creative" class="area-card">
+        <a href="#creative" class="area-card neon-card">
           <div class="icon">✦</div>
           <h3>Creative Work</h3>
           <p>Comic projects, visual storytelling, AI-assisted images and artistic experiments.</p>
@@ -98,19 +91,18 @@
       </div>
 
       <div class="project-grid">
-        <article class="project-card featured">
+        <article class="project-card neon-card">
           <p class="project-label">Featured Project</p>
-          <h3>XA Academy QA Project</h3>
+          <h3>X Academy QA Project</h3>
           <p>
-            Manual QA and automation project focused on test case design, functional testing,
-            bug reporting, automation with Cypress, evidence organization and workflow documentation.
+            Manual QA project focused on test case design, functional testing,
+            bug reporting, evidence organization and workflow documentation.
           </p>
 
           <ul>
             <li>Test cases and execution evidence</li>
             <li>Bug reports and screenshots</li>
             <li>Google Sheets documentation</li>
-            <li>Cypress automation</li>
             <li>Trello board for bug tracking</li>
             <li>GitHub repository documentation</li>
           </ul>
@@ -120,17 +112,16 @@
             <span>Trello</span>
             <span>GitHub</span>
             <span>QA Docs</span>
-            <span>Cypress</span>
           </div>
 
           <div class="project-links">
-            <a href="https://github.com/evelynnavazio/XA-Academy-automationintesting" target="_blank">GitHub</a>
-            <a href="https://docs.google.com/spreadsheets/d/1tG6uC9DuFQSa_L11iv4Vsd6kXKVeJTqqbBg8dBqoQ60/edit?usp=sharing" target="_blank">Test Cases</a>
-            <a href="https://trello.com/b/a3HXQ0Va/cypress-automationintesting-evelyn-grau" target="_blank">Trello</a>
+            <a href="#" target="_blank">GitHub</a>
+            <a href="#" target="_blank">Test Cases</a>
+            <a href="#" target="_blank">Trello</a>
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card neon-card">
           <p class="project-label">In Progress</p>
           <h3>Cypress Automation Practice</h3>
           <p>
@@ -153,9 +144,9 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card neon-card">
           <p class="project-label">In Progress</p>
-          <h3>Postman API Testing</h3>
+          <h3>Postman / API Testing</h3>
           <p>
             API testing practice with collections, requests, assertions and JSON documentation.
           </p>
@@ -190,7 +181,7 @@
       </div>
 
       <div class="project-grid">
-        <article class="project-card">
+        <article class="project-card neon-card">
           <p class="project-label">n8n Workflow</p>
           <h3>Bug Tracking Automation</h3>
           <p>
@@ -216,7 +207,7 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card neon-card">
           <p class="project-label">In Progress</p>
           <h3>Job Search Automation</h3>
           <p>
@@ -255,7 +246,7 @@
       </div>
 
       <div class="project-grid">
-        <article class="project-card">
+        <article class="project-card neon-card">
           <p class="project-label">Comic Project</p>
           <h3>Rodri y Bengala</h3>
           <p>
@@ -281,7 +272,7 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card neon-card">
           <p class="project-label">Gallery</p>
           <h3>Artistic Experiments</h3>
           <p>
@@ -307,94 +298,94 @@
       </div>
     </section>
 
-   <!-- CERTIFICATES & EDUCATION -->
-<section id="certificates" class="section certificates-section">
-  <div class="section-title certificates-title">
-    <p class="eyebrow">Education & Certifications</p>
-    <h2>Certificates & Learning</h2>
-    <p>
-      Courses, certifications and learning milestones connected to QA, automation,
-      AI workflows and software testing.
-    </p>
-  </div>
-
-  <div class="certificates-scroll">
-    <article class="certificate-card">
-      <div class="certificate-image placeholder">
-        <span>n8n</span>
-      </div>
-
-      <div class="certificate-content">
-        <p class="certificate-school">Coderhouse</p>
-        <h3>Automation with AI / n8n</h3>
+    <!-- CERTIFICATES -->
+    <section id="certificates" class="section certificates-section">
+      <div class="section-title certificates-title">
+        <p class="eyebrow">Education & Certifications</p>
+        <h2>Certificates & Learning</h2>
         <p>
-          Workflow automation, integrations, Google Sheets, Trello and QA process improvement.
+          Courses, certifications and learning milestones connected to QA, automation,
+          AI workflows and software testing.
         </p>
-        <span class="certificate-status">Completed · 2026</span>
-      </div>
-    </article>
-
-    <article class="certificate-card">
-      <div class="certificate-image placeholder">
-        <span>QA</span>
       </div>
 
-      <div class="certificate-content">
-        <p class="certificate-school">QA Academy</p>
-        <h3>Software Testing Practice</h3>
-        <p>
-          Manual testing, test cases, bug reports, evidence and QA documentation.
-        </p>
-        <span class="certificate-status">Completed · 2025</span>
-      </div>
-    </article>
+      <div class="certificates-scroll">
+        <article class="certificate-card neon-card">
+          <div class="certificate-image placeholder">
+            <span>n8n</span>
+          </div>
 
-    <article class="certificate-card">
-      <div class="certificate-image placeholder">
-        <span>CY</span>
-      </div>
+          <div class="certificate-content">
+            <p class="certificate-school">Coderhouse</p>
+            <h3>Automation with AI / n8n</h3>
+            <p>
+              Workflow automation, integrations, Google Sheets, Trello and QA process improvement.
+            </p>
+            <span class="certificate-status">Completed · 2026</span>
+          </div>
+        </article>
 
-      <div class="certificate-content">
-        <p class="certificate-school">XAcademy</p>
-        <h3>Cypress Automation</h3>
-        <p>
-          E2E testing practice with Cypress, JavaScript and automated validations.
-        </p>
-        <span class="certificate-status">2026</span>
-      </div>
-    </article>
+        <article class="certificate-card neon-card">
+          <div class="certificate-image placeholder">
+            <span>QA</span>
+          </div>
 
-    <article class="certificate-card">
-      <div class="certificate-image placeholder">
-        <span>ISTQB</span>
-      </div>
+          <div class="certificate-content">
+            <p class="certificate-school">QA Academy</p>
+            <h3>Software Testing Practice</h3>
+            <p>
+              Manual testing, test cases, bug reports, evidence and QA documentation.
+            </p>
+            <span class="certificate-status">Completed · 2026</span>
+          </div>
+        </article>
 
-      <div class="certificate-content">
-        <p class="certificate-school">ISTQB</p>
-        <h3>Foundation Level Preparation</h3>
-        <p>
-          Testing fundamentals, test techniques, risk, defects and quality principles.
-        </p>
-        <span class="certificate-status">In progress</span>
-      </div>
-    </article>
+        <article class="certificate-card neon-card">
+          <div class="certificate-image placeholder">
+            <span>CY</span>
+          </div>
 
-    <article class="certificate-card">
-      <div class="certificate-image placeholder">
-        <span>API</span>
-      </div>
+          <div class="certificate-content">
+            <p class="certificate-school">Neoxone</p>
+            <h3>Cypress Automation Practice</h3>
+            <p>
+              E2E testing practice with Cypress, JavaScript and automated validations.
+            </p>
+            <span class="certificate-status">In progress</span>
+          </div>
+        </article>
 
-      <div class="certificate-content">
-        <p class="certificate-school">Postman / API Testing</p>
-        <h3>API Testing Practice</h3>
-        <p>
-          API requests, JSON, assertions, response validation and documentation.
-        </p>
-        <span class="certificate-status">In progress</span>
+        <article class="certificate-card neon-card">
+          <div class="certificate-image placeholder">
+            <span>ISTQB</span>
+          </div>
+
+          <div class="certificate-content">
+            <p class="certificate-school">ISTQB</p>
+            <h3>Foundation Level Preparation</h3>
+            <p>
+              Testing fundamentals, test techniques, risk, defects and quality principles.
+            </p>
+            <span class="certificate-status">In progress</span>
+          </div>
+        </article>
+
+        <article class="certificate-card neon-card">
+          <div class="certificate-image placeholder">
+            <span>API</span>
+          </div>
+
+          <div class="certificate-content">
+            <p class="certificate-school">Postman / API Testing</p>
+            <h3>API Testing Practice</h3>
+            <p>
+              API requests, JSON, assertions, response validation and documentation.
+            </p>
+            <span class="certificate-status">In progress</span>
+          </div>
+        </article>
       </div>
-    </article>
-  </div>
-</section>
+    </section>
 
     <!-- CONTACT -->
     <section id="contact" class="section contact">
@@ -406,7 +397,8 @@
       </p>
 
       <div class="contact-links">
-        <a href="https://www.linkedin.com/evelyngrau" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="https://github.com/" target="_blank">GitHub</a>
         <a href="mailto:emaildetester2023@gmail.com">Email</a>
       </div>
     </section>
