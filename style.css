@@ -5,12 +5,14 @@
   --card-soft: #1B2436;
   --blue: #2563EB;
   --blue-bright: #3B82F6;
+  --cyan: #22D3EE;
   --violet: #A78BFA;
   --violet-strong: #8B5CF6;
+  --pink: #EC4899;
   --text: #E6EDF7;
   --muted: #94A3B8;
   --border: rgba(167, 139, 250, 0.22);
-  --border-strong: rgba(167, 139, 250, 0.5);
+  --border-strong: rgba(167, 139, 250, 0.62);
   --shadow: rgba(0, 0, 0, 0.35);
 }
 
@@ -27,12 +29,13 @@ html {
 body {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.22), transparent 28%),
-    radial-gradient(circle at 90% 10%, rgba(167, 139, 250, 0.2), transparent 30%),
+    radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.24), transparent 28%),
+    radial-gradient(circle at 90% 10%, rgba(167, 139, 250, 0.22), transparent 30%),
     radial-gradient(circle at 50% 100%, rgba(37, 99, 235, 0.12), transparent 34%),
     var(--bg);
   color: var(--text);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -44,13 +47,16 @@ body::before {
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, black, transparent 80%);
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+  z-index: -1;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
+
+/* HEADER */
 
 .navbar {
   position: sticky;
@@ -62,29 +68,72 @@ a {
   padding: 22px 8%;
   background: rgba(11, 17, 32, 0.86);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo {
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.04em;
+  font-size: 1.08rem;
   color: var(--text);
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease,
+    text-shadow 0.25s ease,
+    letter-spacing 0.25s ease;
+}
+
+.logo:hover {
+  color: var(--violet);
+  transform: translateY(-2px) scale(1.04);
+  letter-spacing: 0.09em;
+  text-shadow:
+    0 0 12px rgba(167, 139, 250, 0.85),
+    0 0 28px rgba(37, 99, 235, 0.75);
 }
 
 .navbar nav {
   display: flex;
-  gap: 20px;
-  font-size: 0.9rem;
+  gap: 22px;
+  font-size: 1rem;
+  font-weight: 750;
   color: var(--muted);
 }
 
 .navbar nav a {
-  transition: color 0.2s ease;
+  position: relative;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.navbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue), var(--violet), var(--cyan));
+  transition: width 0.25s ease;
+  box-shadow: 0 0 14px rgba(167, 139, 250, 0.7);
 }
 
 .navbar nav a:hover {
-  color: var(--violet);
+  color: var(--text);
+  transform: translateY(-2px);
+  text-shadow:
+    0 0 10px rgba(167, 139, 250, 0.85),
+    0 0 18px rgba(59, 130, 246, 0.65);
 }
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+/* HERO */
 
 .hero {
   min-height: 88vh;
@@ -94,7 +143,7 @@ a {
 }
 
 .hero-content {
-  max-width: 900px;
+  max-width: 980px;
 }
 
 .eyebrow {
@@ -102,7 +151,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 20px;
 }
 
@@ -111,7 +160,50 @@ h1 {
   line-height: 0.95;
   letter-spacing: -0.065em;
   margin-bottom: 30px;
-  max-width: 980px;
+  max-width: 1050px;
+}
+
+.magic-title {
+  background: linear-gradient(
+    90deg,
+    var(--text),
+    var(--blue-bright),
+    var(--violet),
+    var(--cyan),
+    var(--pink),
+    var(--text)
+  );
+  background-size: 350% 350%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease,
+    letter-spacing 0.35s ease;
+}
+
+.magic-title:hover {
+  animation: rainbowMove 2.8s ease infinite;
+  transform: translateY(-4px) scale(1.01);
+  filter:
+    drop-shadow(0 0 18px rgba(167, 139, 250, 0.55))
+    drop-shadow(0 0 34px rgba(37, 99, 235, 0.35));
+  letter-spacing: -0.052em;
+}
+
+@keyframes rainbowMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 h2 {
@@ -129,7 +221,7 @@ h3 {
 .hero-text,
 .section-title p,
 .contact p {
-  max-width: 760px;
+  max-width: 780px;
   color: var(--muted);
   font-size: 1.1rem;
 }
@@ -151,6 +243,19 @@ h3 {
   border-radius: 999px;
   padding: 7px 12px;
   font-size: 0.82rem;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.hero-tags span:hover,
+.project-tools span:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  background: rgba(37, 99, 235, 0.16);
+  box-shadow: 0 0 18px rgba(167, 139, 250, 0.35);
 }
 
 .hero-actions {
@@ -161,10 +266,30 @@ h3 {
 }
 
 .button {
-  padding: 13px 20px;
+  position: relative;
+  overflow: hidden;
+  padding: 13px 22px;
   border-radius: 999px;
-  font-weight: 800;
+  font-weight: 900;
   border: 1px solid var(--border);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.26), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+}
+
+.button:hover::before {
+  transform: translateX(100%);
 }
 
 .button.primary {
@@ -178,6 +303,16 @@ h3 {
   background: rgba(255, 255, 255, 0.04);
 }
 
+.button:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: var(--border-strong);
+  box-shadow:
+    0 0 18px rgba(167, 139, 250, 0.45),
+    0 0 34px rgba(37, 99, 235, 0.28);
+}
+
+/* SECTIONS */
+
 .section {
   padding: 96px 8%;
 }
@@ -190,50 +325,93 @@ h3 {
 .project-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: 24px;
 }
 
-.area-card,
-.project-card,
-.certificate-card {
+.project-grid {
+  align-items: stretch;
+}
+
+/* NEON CARDS */
+
+.neon-card {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(21, 26, 35, 0.95), rgba(17, 26, 46, 0.88));
-  border: 1px solid var(--border);
+  border: 1px solid rgba(167, 139, 250, 0.22);
   border-radius: 26px;
   box-shadow: 0 24px 80px var(--shadow);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease;
 }
 
-.area-card::after,
-.project-card::after,
-.certificate-card::after {
+.neon-card::before {
   content: "";
   position: absolute;
-  inset: -1px;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.18), transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(167, 139, 250, 0.16), transparent 30%);
-  opacity: 0.85;
+  inset: -2px;
+  z-index: -2;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(37, 99, 235, 0.75),
+    rgba(167, 139, 250, 0.9),
+    rgba(34, 211, 238, 0.65),
+    transparent,
+    rgba(236, 72, 153, 0.5),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  animation: neonBorderSpin 4s linear infinite;
 }
 
-.area-card > *,
-.project-card > *,
-.certificate-card > * {
-  position: relative;
-  z-index: 2;
+.neon-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.18), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(167, 139, 250, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(21, 26, 35, 0.96), rgba(17, 26, 46, 0.9));
 }
+
+.neon-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(167, 139, 250, 0.72);
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.45),
+    0 0 24px rgba(167, 139, 250, 0.34),
+    0 0 45px rgba(37, 99, 235, 0.18);
+}
+
+.neon-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes neonBorderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* AREA CARDS */
 
 .area-card {
   min-height: 250px;
   padding: 30px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.area-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--border-strong);
+.area-card p,
+.project-card p,
+.project-card li {
+  color: var(--muted);
 }
 
 .icon {
@@ -248,25 +426,23 @@ h3 {
   font-weight: 900;
   margin-bottom: 20px;
   border: 1px solid rgba(167, 139, 250, 0.28);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
-.area-card p,
-.project-card p,
-.project-card li {
-  color: var(--muted);
+.neon-card:hover .icon {
+  transform: rotate(-6deg) scale(1.08);
+  background: rgba(167, 139, 250, 0.18);
+  box-shadow: 0 0 22px rgba(167, 139, 250, 0.35);
 }
 
-.project-grid {
-  align-items: stretch;
-}
+/* PROJECT CARDS */
 
 .project-card {
   min-height: 340px;
   padding: 30px;
-}
-
-.project-card.featured {
-  border-color: rgba(59, 130, 246, 0.5);
 }
 
 .project-label {
@@ -303,17 +479,23 @@ h3 {
   border: 1px solid rgba(59, 130, 246, 0.42);
   padding: 9px 13px;
   border-radius: 999px;
-  font-weight: 800;
+  font-weight: 900;
   font-size: 0.86rem;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .project-links a:hover {
+  transform: translateY(-2px);
   background: rgba(167, 139, 250, 0.24);
-  border-color: rgba(167, 139, 250, 0.55);
+  border-color: rgba(167, 139, 250, 0.65);
+  box-shadow: 0 0 18px rgba(167, 139, 250, 0.35);
 }
 
-/* CERTIFICATE CAROUSEL */
-/* CERTIFICATES & EDUCATION */
+/* CERTIFICATES */
 
 .certificates-section {
   padding-left: 0;
@@ -329,8 +511,9 @@ h3 {
   display: flex;
   gap: 24px;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  padding: 10px 8% 28px;
+  padding: 10px 8% 34px;
   scrollbar-width: thin;
   scrollbar-color: var(--violet) rgba(255, 255, 255, 0.08);
 }
@@ -354,28 +537,7 @@ h3 {
   max-width: 360px;
   min-height: 430px;
   scroll-snap-align: start;
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(180deg, rgba(21, 26, 35, 0.96), rgba(17, 26, 46, 0.9));
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  box-shadow: 0 24px 80px var(--shadow);
-}
-
-.certificate-card::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 15% 0%, rgba(59, 130, 246, 0.18), transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(167, 139, 250, 0.16), transparent 30%);
-}
-
-.certificate-card > * {
-  position: relative;
-  z-index: 2;
+  flex: 0 0 auto;
 }
 
 .certificate-image {
@@ -387,6 +549,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 26px 26px 0 0;
 }
 
 .certificate-image img {
@@ -397,10 +560,13 @@ h3 {
 
 .certificate-image.placeholder span {
   font-size: 2.4rem;
-  font-weight: 900;
+  font-weight: 950;
   letter-spacing: -0.05em;
   color: var(--text);
   opacity: 0.95;
+  text-shadow:
+    0 0 14px rgba(167, 139, 250, 0.75),
+    0 0 30px rgba(37, 99, 235, 0.5);
 }
 
 .certificate-content {
@@ -451,12 +617,21 @@ h3 {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   color: var(--text);
-  font-weight: 800;
+  font-weight: 900;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .contact-links a:hover {
+  transform: translateY(-3px);
   border-color: var(--border-strong);
   color: var(--violet);
+  box-shadow:
+    0 0 18px rgba(167, 139, 250, 0.35),
+    0 0 30px rgba(37, 99, 235, 0.16);
 }
 
 /* RESPONSIVE */
@@ -466,20 +641,26 @@ h3 {
   .project-grid {
     grid-template-columns: 1fr 1fr;
   }
-}
 
-@media (max-width: 760px) {
   .navbar {
     align-items: flex-start;
     gap: 16px;
     flex-direction: column;
-    padding: 18px 6%;
   }
 
   .navbar nav {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 760px) {
+  .navbar {
+    padding: 18px 6%;
+  }
+
+  .navbar nav {
     gap: 12px;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
   }
 
   .hero {
@@ -499,7 +680,18 @@ h3 {
     font-size: clamp(2.8rem, 12vw, 4.2rem);
   }
 
+  .certificates-title {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
+  .certificates-scroll {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+
   .certificate-card {
-    width: 245px;
+    min-width: 82vw;
+    max-width: 82vw;
   }
 }
