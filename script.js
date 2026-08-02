@@ -6,30 +6,15 @@ function getScrollAmount() {
   const slide = diplomaTrack.querySelector(".diploma-slide");
   const gap = 26;
 
-  if (!slide) return 400;
+  if (!slide) return 420;
 
   return slide.offsetWidth + gap;
 }
 
-nextButton.addEventListener("click", () => {
-  diplomaTrack.scrollBy({
-    left: getScrollAmount(),
-    behavior: "smooth"
-  });
-});
-
-prevButton.addEventListener("click", () => {
-  diplomaTrack.scrollBy({
-    left: -getScrollAmount(),
-    behavior: "smooth"
-  });
-});
-
-/* Auto-scroll */
-let autoScroll = setInterval(() => {
+function scrollNext() {
   const maxScrollLeft = diplomaTrack.scrollWidth - diplomaTrack.clientWidth;
 
-  if (diplomaTrack.scrollLeft >= maxScrollLeft - 10) {
+  if (diplomaTrack.scrollLeft >= maxScrollLeft - 20) {
     diplomaTrack.scrollTo({
       left: 0,
       behavior: "smooth"
@@ -40,27 +25,42 @@ let autoScroll = setInterval(() => {
       behavior: "smooth"
     });
   }
-}, 3500);
+}
 
-/* Pause auto-scroll on interaction */
+function scrollPrev() {
+  if (diplomaTrack.scrollLeft <= 20) {
+    diplomaTrack.scrollTo({
+      left: diplomaTrack.scrollWidth,
+      behavior: "smooth"
+    });
+  } else {
+    diplomaTrack.scrollBy({
+      left: -getScrollAmount(),
+      behavior: "smooth"
+    });
+  }
+}
+
+nextButton.addEventListener("click", scrollNext);
+prevButton.addEventListener("click", scrollPrev);
+
+/* Auto-scroll every 2 seconds */
+let autoScroll = setInterval(scrollNext, 2000);
+
+/* Pause on hover */
 diplomaTrack.addEventListener("mouseenter", () => {
   clearInterval(autoScroll);
 });
 
 diplomaTrack.addEventListener("mouseleave", () => {
-  autoScroll = setInterval(() => {
-    const maxScrollLeft = diplomaTrack.scrollWidth - diplomaTrack.clientWidth;
+  autoScroll = setInterval(scrollNext, 2000);
+});
 
-    if (diplomaTrack.scrollLeft >= maxScrollLeft - 10) {
-      diplomaTrack.scrollTo({
-        left: 0,
-        behavior: "smooth"
-      });
-    } else {
-      diplomaTrack.scrollBy({
-        left: getScrollAmount(),
-        behavior: "smooth"
-      });
-    }
-  }, 3500);
+/* Pause when user touches/scrolls on mobile */
+diplomaTrack.addEventListener("touchstart", () => {
+  clearInterval(autoScroll);
+});
+
+diplomaTrack.addEventListener("touchend", () => {
+  autoScroll = setInterval(scrollNext, 2500);
 });
