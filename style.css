@@ -543,6 +543,91 @@ h3 {
   box-shadow: 0 0 18px rgba(167, 139, 250, 0.35);
 }
 
+/* PROJECT IMAGE PREVIEWS */
+
+.project-card-with-image {
+  padding: 26px;
+}
+
+.project-preview {
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 18px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(167, 139, 250, 0.16)),
+    rgba(255, 255, 255, 0.03);
+  box-shadow:
+    inset 0 0 30px rgba(37, 99, 235, 0.10),
+    0 0 24px rgba(167, 139, 250, 0.12);
+}
+
+.project-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.92;
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    filter 0.35s ease;
+}
+
+.project-card:hover .project-preview img {
+  transform: scale(1.04);
+  opacity: 1;
+  filter: brightness(1.08) contrast(1.05);
+}
+
+.project-thumbnails {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.project-thumbnails img,
+.project-thumbnails span {
+  width: 64px;
+  height: 42px;
+  border-radius: 9px;
+  border: 1px solid rgba(167, 139, 250, 0.26);
+  background: rgba(255, 255, 255, 0.04);
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-thumbnails span {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 900;
+  background: rgba(37, 99, 235, 0.18);
+}
+
+.project-checklist {
+  list-style: none;
+  margin-left: 0;
+}
+
+.project-checklist li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+}
+
+.project-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--violet);
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.55);
+}
 /* CERTIFICATES INFINITE CAROUSEL */
 
 .certificates-section {
