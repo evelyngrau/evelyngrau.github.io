@@ -64,3 +64,30 @@ diplomaTrack.addEventListener("touchstart", () => {
 diplomaTrack.addEventListener("touchend", () => {
   autoScroll = setInterval(scrollNext, 2500);
 });
+
+/* Hide navbar on scroll down, show on scroll up */
+
+const navbar = document.querySelector(".navbar");
+
+let lastScrollY = window.scrollY;
+
+window.addEventListener("scroll", () => {
+  const currentScrollY = window.scrollY;
+
+  if (!navbar) return;
+
+  if (currentScrollY > 40) {
+    navbar.classList.add("nav-scrolled");
+  } else {
+    navbar.classList.remove("nav-scrolled");
+  }
+
+  if (currentScrollY > lastScrollY && currentScrollY > 120) {
+    navbar.classList.add("nav-hidden");
+  } else {
+    navbar.classList.remove("nav-hidden");
+  }
+
+  lastScrollY = currentScrollY;
+});
+
