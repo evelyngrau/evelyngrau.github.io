@@ -904,3 +904,33 @@ h3 {
     right: 2%;
   }
 }
+
+/* CONTACT WITH PIXEL GIF */
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.2fr;
+  gap: 42px;
+  align-items: center;
+}
+
+.contact-copy {
+  max-width: 520px;
+}
+
+.contact-animation {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  background: rgba(11, 17, 32, 0.85);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.35),
+    0 0 24px rgba(167, 139, 250, 0.18);
+}
+
+.contact-animation img {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
