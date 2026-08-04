@@ -1,6 +1,4 @@
-const diplomaTrack = document.getElementById("diplomaTrack");
-const prevButton = document.querySelector(".carousel-btn.prev");
-const nextButton = document.querySelector(".carousel-btn.next");
+
 
 function getScrollAmount() {
   const slide = diplomaTrack.querySelector(".diploma-slide");
