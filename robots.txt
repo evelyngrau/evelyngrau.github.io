@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://evelyngrau.github.io/sitemap.xml
+Sitemap: https://evelyngrau.github.io/portfolio/sitemap.xml
