@@ -1,67 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics 4: conservar exactamente este ID -->
+  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YR2N5G4THK"></script>
+
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YR2N5G4THK');
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+    gtag("config", "G-YR2N5G4THK");
   </script>
 
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- SEO principal -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>Evelyn Grau | QA Engineer Portfolio</title>
+
   <meta
     name="description"
-    content="QA Engineer portfolio by Evelyn Grau featuring manual testing, API testing, Cypress automation, SQL validation and AI/LLM testing projects."
+    content="QA Engineer portfolio by Evelyn Grau featuring manual testing, API testing, automation, SQL validation and AI-assisted testing projects."
   />
+
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://evelyngrau.github.io/" />
 
-  <!-- Favicons: se mantienen las rutas originales que ya funcionaban -->
-  <link rel="icon" href="./assets/icons/favicon.ico?v=3" type="image/x-icon" />
-  <link rel="shortcut icon" href="./assets/icons/favicon.ico?v=3" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="./assets/icons/favicon-eg-neon.png?v=3" />
+  <link
+    rel="canonical"
+    href="https://evelyngrau.github.io/"
+  />
 
-  <!-- Vista previa al compartir el enlace -->
+  <!-- Favicons: conservar las rutas que ya funcionaban -->
+  <link
+    rel="icon"
+    href="./assets/icons/favicon.ico?v=3"
+    type="image/x-icon"
+  />
+
+  <link
+    rel="shortcut icon"
+    href="./assets/icons/favicon.ico?v=3"
+    type="image/x-icon"
+  />
+
+  <link
+    rel="apple-touch-icon"
+    href="./assets/icons/favicon-eg-neon.png?v=3"
+  />
+
+  <!-- Vista previa al compartir -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Evelyn Grau QA Portfolio" />
-  <meta property="og:title" content="Evelyn Grau | QA Engineer Portfolio" />
+
+  <meta
+    property="og:title"
+    content="Evelyn Grau | QA Engineer Portfolio"
+  />
+
   <meta
     property="og:description"
-    content="Manual testing, API testing, Cypress automation, SQL validation and AI/LLM testing projects."
+    content="Manual testing, API testing, automation, SQL validation and AI-assisted testing projects."
   />
-  <meta property="og:url" content="https://evelyngrau.github.io/" />
-  <meta property="og:locale" content="en_US" />
 
-  <!-- Datos estructurados para ayudar a Google a identificar el sitio y a su autora -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Evelyn Grau",
-    "url": "https://evelyngrau.github.io/",
-    "jobTitle": "QA Engineer",
-    "sameAs": [
-      "https://github.com/evelyngrau"
-    ],
-    "knowsAbout": [
-      "Manual Testing",
-      "API Testing",
-      "Cypress",
-      "SQL Validation",
-      "AI Testing",
-      "LLM Evaluation"
-    ]
-  }
-  </script>
+  <meta
+    property="og:url"
+    content="https://evelyngrau.github.io/"
+  />
 
-  <!-- Ruta original del CSS: no modificar -->
+  <!-- Dejar esta línea solo si la imagen realmente existe -->
+  <meta
+    property="og:image"
+    content="https://evelyngrau.github.io/assets/portfolio-preview.png"
+  />
+
+  <!-- Conservar la ruta original del CSS -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Mobile certificate swipe support -->
+  <style>
+    .certificate-swipe-hint {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .certificates-section .diploma-carousel {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .certificates-section .diploma-track {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100%;
+        gap: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-inline: contain;
+        touch-action: pan-x;
+        transform: none !important;
+        animation: none !important;
+        scrollbar-width: none;
+      }
+
+      .certificates-section .diploma-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .certificates-section .diploma-slide {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        box-sizing: border-box;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+      }
+
+      .certificates-section .diploma-slide img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: 72vh;
+        margin: 0 auto;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .certificate-swipe-hint {
+        display: block;
+        margin: 0.75rem 0 1rem;
+        text-align: center;
+        font-size: 0.85rem;
+        opacity: 0.75;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -431,11 +514,18 @@
       Diplomas, courses and learning milestones connected to QA, automation,
       AI workflows and software testing.
     </p>
+    <p class="certificate-swipe-hint">Swipe to view more certificates →</p>
   </div>
 
   <div class="diploma-carousel">
 
-    <div class="diploma-track" id="diplomaTrack">
+    <div
+      class="diploma-track"
+      id="diplomaTrack"
+      role="region"
+      aria-label="Certificates carousel. Swipe horizontally to view more certificates."
+      tabindex="0"
+    >
       <article class="diploma-slide">
         <img src="assets/certificates/University.png" alt="Technology National Univercity certificate" />
       </article>
