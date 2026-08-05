@@ -702,21 +702,21 @@ h3 {
   display: flex;
   width: 100%;
   gap: 24px;
-
-  padding: 8px 4px 18px;
-
   overflow-x: auto;
   overflow-y: hidden;
-
+  padding: 8px 4px 18px;
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-
+  overscroll-behavior-inline: contain;
+  touch-action: pan-x;
   transform: none;
   animation: none;
 }
 
-
+.diploma-track::-webkit-scrollbar {
+  display: none;
+}
 
 .diploma-slide {
   display: flex;
@@ -725,7 +725,6 @@ h3 {
   padding: 12px;
   align-items: center;
   justify-content: center;
-  scroll-snap-align: center;
   border-radius: 24px;
   background:
     linear-gradient(180deg, rgba(21, 26, 35, 0.96), rgba(17, 26, 46, 0.92));
@@ -759,12 +758,6 @@ h3 {
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .diploma-track {
-    animation: none;
-  }
 }
 
 /* CONTACT */
@@ -1545,7 +1538,7 @@ CREATIVE COMIC PROJECT
 }
 
 /* ========================================
-FINAL RESPONSIVE OVERRIDES
+   FINAL RESPONSIVE OVERRIDES
 ======================================== */
 
 @media (max-width: 768px) {
@@ -1667,48 +1660,97 @@ FINAL RESPONSIVE OVERRIDES
   }
 }
 
+
+
 /* ========================================
-   GALLERY TITLES POSITION
+   FINAL RECOVERY OVERRIDES
 ======================================== */
 
+/* The certificate track is moved by JavaScript on every screen size. */
+.certificates-section .diploma-track {
+  display: flex !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  gap: 24px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: none !important;
+  scroll-behavior: auto !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Keep the comic cover at its real aspect ratio. */
+.creative-project-gallery .creative-cover {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  overflow: hidden !important;
+}
+
+.creative-project-gallery .creative-cover img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+}
+
+.creative-project-gallery .gallery-thumb[hidden] {
+  display: none !important;
+}
+
+/* Center the gallery heading above the current image. */
 .gallery-header {
-  width: 100%;
-  max-width: none;
-
-  padding: 20px 68px 10px;
-
-  text-align: center;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 18px 64px 8px !important;
+  text-align: center !important;
 }
 
 .gallery-header .eyebrow {
-  margin-bottom: 7px;
+  margin-bottom: 6px !important;
 }
 
 .gallery-header h3 {
-  margin: 0 0 5px;
-
-  font-size: clamp(1.35rem, 2.5vw, 2rem);
-  line-height: 1.15;
+  margin: 0 0 5px !important;
+  font-size: clamp(1.35rem, 2.5vw, 2rem) !important;
+  line-height: 1.15 !important;
 }
 
 .gallery-header p:not(.eyebrow) {
-  max-width: 620px;
-  margin: 0 auto;
-
-  color: var(--muted);
-  text-align: center;
+  max-width: 640px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
 }
 
 @media (max-width: 768px) {
+  .certificates-section .diploma-track {
+    gap: 12px !important;
+    padding: 8px 0 16px !important;
+  }
+
+  .certificates-section .diploma-slide {
+    flex: 0 0 88% !important;
+    width: 88% !important;
+    min-width: 88% !important;
+    height: auto !important;
+    min-height: 220px !important;
+  }
+
+  .certificates-section .diploma-slide img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 58vh !important;
+    object-fit: contain !important;
+  }
+
   .gallery-header {
-    padding: 18px 56px 10px 16px;
+    padding: 16px 52px 8px 14px !important;
   }
 
   .gallery-header h3 {
-    font-size: 1.35rem;
-  }
-
-  .gallery-header p:not(.eyebrow) {
-    font-size: 0.9rem;
+    font-size: 1.3rem !important;
   }
 }

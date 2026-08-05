@@ -114,119 +114,120 @@
   }
 
   /* ========================================
-CERTIFICATE CAROUSEL
+     CERTIFICATE CAROUSEL
   ======================================== */
 
-function initializeCertificateCarousel() {
-  const diplomaTrack = document.getElementById("diplomaTrack");
+  function initializeCertificateCarousel() {
+    const diplomaTrack = document.getElementById("diplomaTrack");
 
-  if (!diplomaTrack) {
-    return;
-  }
+    if (!diplomaTrack) {
+      return;
+    }
 
-  const originalSlides = Array.from(
-    diplomaTrack.querySelectorAll(".diploma-slide")
-  ).filter((slide) => slide.dataset.carouselClone !== "true");
+    const originalSlides = Array.from(
+      diplomaTrack.querySelectorAll(".diploma-slide")
+    ).filter((slide) => slide.dataset.carouselClone !== "true");
 
-  /* Duplicar certificados para crear un recorrido infinito */
-  if (
-    originalSlides.length > 0 &&
-    diplomaTrack.dataset.carouselInitialized !== "true"
-  ) {
-    originalSlides.forEach((slide) => {
-      const clone = slide.cloneNode(true);
+    if (
+      originalSlides.length > 0 &&
+      diplomaTrack.dataset.carouselInitialized !== "true"
+    ) {
+      originalSlides.forEach((slide) => {
+        const clone = slide.cloneNode(true);
 
-      clone.dataset.carouselClone = "true";
-      clone.setAttribute("aria-hidden", "true");
+        clone.dataset.carouselClone = "true";
+        clone.setAttribute("aria-hidden", "true");
 
-      clone.querySelectorAll("img").forEach((image) => {
-        image.setAttribute("aria-hidden", "true");
-        image.removeAttribute("alt");
+        clone.querySelectorAll("img").forEach((image) => {
+          image.setAttribute("aria-hidden", "true");
+          image.removeAttribute("alt");
+        });
+
+        diplomaTrack.appendChild(clone);
       });
 
-      diplomaTrack.appendChild(clone);
-    });
-
-    diplomaTrack.dataset.carouselInitialized = "true";
-  }
-
-  const speed = 28; // píxeles por segundo
-
-  let previousTime = null;
-  let isInteracting = false;
-  let resumeTimer = null;
-
-  function animateCertificates(currentTime) {
-    if (previousTime === null) {
-      previousTime = currentTime;
+      diplomaTrack.dataset.carouselInitialized = "true";
     }
 
-    const elapsedTime = Math.min(currentTime - previousTime, 50);
-    previousTime = currentTime;
+    let loopDistance = 0;
+    let previousTime = null;
+    let isPaused = false;
+    let resumeTimer = null;
 
-    if (!isInteracting) {
-      diplomaTrack.scrollLeft +=
-        speed * (elapsedTime / 1000);
+    function calculateLoopDistance() {
+      const firstOriginal = diplomaTrack.querySelector(
+        '.diploma-slide:not([data-carousel-clone="true"])'
+      );
+      const firstClone = diplomaTrack.querySelector(
+        '.diploma-slide[data-carousel-clone="true"]'
+      );
 
-      const loopPoint = diplomaTrack.scrollWidth / 2;
-
-      if (
-        loopPoint > 0 &&
-        diplomaTrack.scrollLeft >= loopPoint
-      ) {
-        diplomaTrack.scrollLeft -= loopPoint;
+      if (!firstOriginal || !firstClone) {
+        loopDistance = 0;
+        return;
       }
+
+      loopDistance = firstClone.offsetLeft - firstOriginal.offsetLeft;
     }
 
-    window.requestAnimationFrame(animateCertificates);
+    function pauseMovement() {
+      isPaused = true;
+      window.clearTimeout(resumeTimer);
+    }
+
+    function resumeMovement() {
+      window.clearTimeout(resumeTimer);
+
+      resumeTimer = window.setTimeout(() => {
+        isPaused = false;
+        previousTime = null;
+      }, 700);
+    }
+
+    function animateCertificates(currentTime) {
+      if (previousTime === null) {
+        previousTime = currentTime;
+      }
+
+      const elapsedTime = Math.min(currentTime - previousTime, 50);
+      previousTime = currentTime;
+
+      if (!isPaused && loopDistance > 0) {
+        const speed = 28;
+
+        diplomaTrack.scrollLeft += speed * (elapsedTime / 1000);
+
+        if (diplomaTrack.scrollLeft >= loopDistance) {
+          diplomaTrack.scrollLeft -= loopDistance;
+        }
+      }
+
+      window.requestAnimationFrame(animateCertificates);
+    }
+
+    diplomaTrack.addEventListener("pointerdown", pauseMovement);
+    window.addEventListener("pointerup", resumeMovement);
+    window.addEventListener("pointercancel", resumeMovement);
+
+    diplomaTrack.addEventListener(
+      "wheel",
+      () => {
+        pauseMovement();
+        resumeMovement();
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("resize", calculateLoopDistance);
+
+    window.requestAnimationFrame(() => {
+      calculateLoopDistance();
+      window.requestAnimationFrame(animateCertificates);
+    });
   }
-
-  function pauseMovement() {
-    isInteracting = true;
-    window.clearTimeout(resumeTimer);
-  }
-
-  function resumeMovement() {
-    window.clearTimeout(resumeTimer);
-
-    resumeTimer = window.setTimeout(() => {
-      isInteracting = false;
-      previousTime = null;
-    }, 700);
-  }
-
-  diplomaTrack.addEventListener(
-    "pointerdown",
-    pauseMovement
-  );
-
-  window.addEventListener(
-    "pointerup",
-    resumeMovement
-  );
-
-  window.addEventListener(
-    "pointercancel",
-    resumeMovement
-  );
-
-  diplomaTrack.addEventListener(
-    "touchstart",
-    pauseMovement,
-    { passive: true }
-  );
-
-  diplomaTrack.addEventListener(
-    "touchend",
-    resumeMovement,
-    { passive: true }
-  );
-
-  window.requestAnimationFrame(animateCertificates);
-}
 
   /* ========================================
-PROJECT AND COMIC GALLERY
+     PROJECT AND COMIC GALLERY
   ======================================== */
 
   function initializeGallery() {
