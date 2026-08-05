@@ -1,221 +1,578 @@
+(() => {
+  "use strict";
 
-
-function getScrollAmount() {
-  const slide = diplomaTrack.querySelector(".diploma-slide");
-  const gap = 26;
-
-  if (!slide) return 420;
-
-  return slide.offsetWidth + gap;
-}
-
-function scrollNext() {
-  const maxScrollLeft = diplomaTrack.scrollWidth - diplomaTrack.clientWidth;
-
-  if (diplomaTrack.scrollLeft >= maxScrollLeft - 20) {
-    diplomaTrack.scrollTo({
-      left: 0,
-      behavior: "smooth"
-    });
-  } else {
-    diplomaTrack.scrollBy({
-      left: getScrollAmount(),
-      behavior: "smooth"
-    });
-  }
-}
-
-function scrollPrev() {
-  if (diplomaTrack.scrollLeft <= 20) {
-    diplomaTrack.scrollTo({
-      left: diplomaTrack.scrollWidth,
-      behavior: "smooth"
-    });
-  } else {
-    diplomaTrack.scrollBy({
-      left: -getScrollAmount(),
-      behavior: "smooth"
-    });
-  }
-}
-
-nextButton.addEventListener("click", scrollNext);
-prevButton.addEventListener("click", scrollPrev);
-
-/* Auto-scroll every 2 seconds */
-let autoScroll = setInterval(scrollNext, 2000);
-
-/* Pause on hover */
-diplomaTrack.addEventListener("mouseenter", () => {
-  clearInterval(autoScroll);
-});
-
-diplomaTrack.addEventListener("mouseleave", () => {
-  autoScroll = setInterval(scrollNext, 2000);
-});
-
-/* Pause when user touches/scrolls on mobile */
-diplomaTrack.addEventListener("touchstart", () => {
-  clearInterval(autoScroll);
-});
-
-diplomaTrack.addEventListener("touchend", () => {
-  autoScroll = setInterval(scrollNext, 2500);
-});
-
-/* Hide navbar on scroll down, show on scroll up */
-
-const navbar = document.querySelector(".navbar");
-
-let lastScrollY = window.scrollY;
-
-window.addEventListener("scroll", () => {
-  const currentScrollY = window.scrollY;
-
-  if (!navbar) return;
-
-  if (currentScrollY > 40) {
-    navbar.classList.add("nav-scrolled");
-  } else {
-    navbar.classList.remove("nav-scrolled");
-  }
-
-  if (currentScrollY > lastScrollY && currentScrollY > 120) {
-    navbar.classList.add("nav-hidden");
-  } else {
-    navbar.classList.remove("nav-hidden");
-  }
-
-  lastScrollY = currentScrollY;
-});
-
-/* PROJECT SCREENSHOT GALLERY */
-
-document.addEventListener("DOMContentLoaded", () => {
   const projectGalleries = {
     xacademy: {
       title: "XAcademy QA Project",
       description: "Test cases, bug reports, Trello workflow and QA evidence.",
       images: [
-        "assets/projects/xacademy-main.png",
-        "assets/projects/xacademy-testcases.png",
-        "assets/projects/xacademy-trello.png",
-        "assets/projects/xacademy-bug-report.png"
+        {
+          src: "assets/projects/xacademy-main.png",
+          caption: "XAcademy QA Project dashboard"
+        },
+        {
+          src: "assets/projects/xacademy-testcases.png",
+          caption: "Test cases"
+        },
+        {
+          src: "assets/projects/xacademy-trello.png",
+          caption: "Trello workflow"
+        },
+        {
+          src: "assets/projects/xacademy-bug-report.png",
+          caption: "Bug report"
+        }
       ]
     },
 
     cypress: {
       title: "Cypress Automation Practice",
-      description: "Cypress runner, test code, execution evidence and automation practice.",
+      description: "Cypress test code, execution evidence and automation practice.",
       images: [
-        "assets/projects/cypress-main.png",
-        "assets/projects/cypress-code.png",
-        "assets/projects/cypress-report.png"
+        {
+          src: "assets/projects/cypress-main.png",
+          caption: "Cypress Automation Practice"
+        },
+        {
+          src: "assets/projects/cypress-code.png",
+          caption: "Cypress test code"
+        },
+        {
+          src: "assets/projects/cypress-report.png",
+          caption: "Cypress execution report"
+        }
       ]
     },
 
     postman: {
       title: "Postman / API Testing",
-      description: "API requests, JSON responses, assertions and validation evidence.",
+      description: "API requests, collections, JSON responses and validation evidence.",
       images: [
-        "assets/projects/postman-main.png",
-        "assets/projects/postman-collection.png",
-        "assets/projects/postman-response.png"
+        {
+          src: "assets/projects/postman-main.png",
+          caption: "Postman API Testing"
+        },
+        {
+          src: "assets/projects/postman-collection.png",
+          caption: "Postman collection"
+        },
+        {
+          src: "assets/projects/postman-response.png",
+          caption: "API response"
+        }
       ]
     }
   };
 
-  const galleryModal = document.getElementById("galleryModal");
-  const galleryOverlay = document.getElementById("galleryOverlay");
-  const galleryClose = document.getElementById("galleryClose");
-  const galleryImage = document.getElementById("galleryImage");
-  const galleryTitle = document.getElementById("galleryTitle");
-  const galleryDescription = document.getElementById("galleryDescription");
-  const galleryCounter = document.getElementById("galleryCounter");
-  const galleryPrev = document.getElementById("galleryPrev");
-  const galleryNext = document.getElementById("galleryNext");
-  const galleryTriggers = document.querySelectorAll(".gallery-trigger");
-
-  let currentGallery = null;
-  let currentImageIndex = 0;
-
-  function openGallery(galleryName) {
-    currentGallery = projectGalleries[galleryName];
-    currentImageIndex = 0;
-
-    if (!currentGallery) return;
-
-    galleryTitle.textContent = currentGallery.title;
-    galleryDescription.textContent = currentGallery.description;
-
-    updateGalleryImage();
-
-    galleryModal.classList.add("active");
-    galleryModal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+  function initializePortfolio() {
+    initializeNavbar();
+    initializeCertificateCarousel();
+    initializeGallery();
+    initializeAnalyticsEvents();
   }
 
-  function closeGallery() {
-    galleryModal.classList.remove("active");
-    galleryModal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
+  /* ========================================
+     NAVBAR
+  ======================================== */
 
-  function updateGalleryImage() {
-    if (!currentGallery) return;
+  function initializeNavbar() {
+    const navbar = document.querySelector(".navbar");
 
-    galleryImage.src = currentGallery.images[currentImageIndex];
-    galleryImage.alt = `${currentGallery.title} screenshot ${currentImageIndex + 1}`;
-    galleryCounter.textContent = `${currentImageIndex + 1} / ${currentGallery.images.length}`;
-  }
-
-  function showNextImage() {
-    if (!currentGallery) return;
-
-    currentImageIndex++;
-
-    if (currentImageIndex >= currentGallery.images.length) {
-      currentImageIndex = 0;
+    if (!navbar) {
+      return;
     }
 
-    updateGalleryImage();
-  }
+    let lastScrollY = window.scrollY;
+    let scrollTicking = false;
 
-  function showPrevImage() {
-    if (!currentGallery) return;
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
 
-    currentImageIndex--;
+      navbar.classList.toggle("nav-scrolled", currentScrollY > 40);
 
-    if (currentImageIndex < 0) {
-      currentImageIndex = currentGallery.images.length - 1;
+      navbar.classList.toggle(
+        "nav-hidden",
+        currentScrollY > lastScrollY && currentScrollY > 120
+      );
+
+      lastScrollY = currentScrollY;
+      scrollTicking = false;
     }
 
-    updateGalleryImage();
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (scrollTicking) {
+          return;
+        }
+
+        scrollTicking = true;
+        window.requestAnimationFrame(updateNavbar);
+      },
+      { passive: true }
+    );
   }
 
-  galleryTriggers.forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      openGallery(trigger.dataset.gallery);
+  /* ========================================
+CERTIFICATE CAROUSEL
+  ======================================== */
+
+function initializeCertificateCarousel() {
+  const diplomaTrack = document.getElementById("diplomaTrack");
+
+  if (!diplomaTrack) {
+    return;
+  }
+
+  const originalSlides = Array.from(
+    diplomaTrack.querySelectorAll(".diploma-slide")
+  ).filter((slide) => slide.dataset.carouselClone !== "true");
+
+  /* Duplicar certificados para crear un recorrido infinito */
+  if (
+    originalSlides.length > 0 &&
+    diplomaTrack.dataset.carouselInitialized !== "true"
+  ) {
+    originalSlides.forEach((slide) => {
+      const clone = slide.cloneNode(true);
+
+      clone.dataset.carouselClone = "true";
+      clone.setAttribute("aria-hidden", "true");
+
+      clone.querySelectorAll("img").forEach((image) => {
+        image.setAttribute("aria-hidden", "true");
+        image.removeAttribute("alt");
+      });
+
+      diplomaTrack.appendChild(clone);
     });
 
-    trigger.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
+    diplomaTrack.dataset.carouselInitialized = "true";
+  }
+
+  const speed = 28; // píxeles por segundo
+
+  let previousTime = null;
+  let isInteracting = false;
+  let resumeTimer = null;
+
+  function animateCertificates(currentTime) {
+    if (previousTime === null) {
+      previousTime = currentTime;
+    }
+
+    const elapsedTime = Math.min(currentTime - previousTime, 50);
+    previousTime = currentTime;
+
+    if (!isInteracting) {
+      diplomaTrack.scrollLeft +=
+        speed * (elapsedTime / 1000);
+
+      const loopPoint = diplomaTrack.scrollWidth / 2;
+
+      if (
+        loopPoint > 0 &&
+        diplomaTrack.scrollLeft >= loopPoint
+      ) {
+        diplomaTrack.scrollLeft -= loopPoint;
+      }
+    }
+
+    window.requestAnimationFrame(animateCertificates);
+  }
+
+  function pauseMovement() {
+    isInteracting = true;
+    window.clearTimeout(resumeTimer);
+  }
+
+  function resumeMovement() {
+    window.clearTimeout(resumeTimer);
+
+    resumeTimer = window.setTimeout(() => {
+      isInteracting = false;
+      previousTime = null;
+    }, 700);
+  }
+
+  diplomaTrack.addEventListener(
+    "pointerdown",
+    pauseMovement
+  );
+
+  window.addEventListener(
+    "pointerup",
+    resumeMovement
+  );
+
+  window.addEventListener(
+    "pointercancel",
+    resumeMovement
+  );
+
+  diplomaTrack.addEventListener(
+    "touchstart",
+    pauseMovement,
+    { passive: true }
+  );
+
+  diplomaTrack.addEventListener(
+    "touchend",
+    resumeMovement,
+    { passive: true }
+  );
+
+  window.requestAnimationFrame(animateCertificates);
+}
+
+  /* ========================================
+PROJECT AND COMIC GALLERY
+  ======================================== */
+
+  function initializeGallery() {
+    const modal = document.getElementById("galleryModal");
+    const overlay = document.getElementById("galleryOverlay");
+    const closeButton = document.getElementById("galleryClose");
+    const previousButton = document.getElementById("galleryPrev");
+    const nextButton = document.getElementById("galleryNext");
+    const image = document.getElementById("galleryImage");
+    const title = document.getElementById("galleryTitle");
+    const description = document.getElementById("galleryDescription");
+    const counter = document.getElementById("galleryCounter");
+
+    if (
+      !modal ||
+      !overlay ||
+      !closeButton ||
+      !previousButton ||
+      !nextButton ||
+      !image ||
+      !title ||
+      !description ||
+      !counter
+    ) {
+      console.error(
+        "Gallery could not start because the modal markup is incomplete."
+      );
+      return;
+    }
+
+    let currentGallery = [];
+    let currentIndex = 0;
+    let currentTitle = "";
+    let currentDescription = "";
+    let opener = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    function normalizeGalleryItems(items) {
+      if (!Array.isArray(items)) {
+        return [];
+      }
+
+      return items
+        .map((item) => {
+          if (typeof item === "string") {
+            return { src: item, caption: "" };
+          }
+
+          return {
+            src: item?.src || "",
+            caption: item?.caption || ""
+          };
+        })
+        .filter((item) => item.src);
+    }
+
+    function renderImage() {
+      const item = currentGallery[currentIndex];
+
+      if (!item) {
+        return;
+      }
+
+      image.src = item.src;
+      image.alt = item.caption || currentTitle || "Gallery image";
+      title.textContent = currentTitle || "Gallery";
+      description.textContent = item.caption || currentDescription || "";
+      counter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+
+      const hasMultipleImages = currentGallery.length > 1;
+      previousButton.hidden = !hasMultipleImages;
+      nextButton.hidden = !hasMultipleImages;
+    }
+
+    function openGallery(
+      items,
+      galleryTitle,
+      galleryDescription,
+      startIndex = 0,
+      trigger = null
+    ) {
+      const normalizedItems = normalizeGalleryItems(items);
+
+      if (normalizedItems.length === 0) {
+        console.error("The selected gallery does not contain valid images.");
+        return;
+      }
+
+      currentGallery = normalizedItems;
+      currentTitle = galleryTitle || "Gallery";
+      currentDescription = galleryDescription || "";
+      currentIndex = Math.min(
+        Math.max(Number(startIndex) || 0, 0),
+        currentGallery.length - 1
+      );
+      opener = trigger || document.activeElement;
+
+      renderImage();
+
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("gallery-open");
+      closeButton.focus();
+    }
+
+    function closeGallery() {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("gallery-open");
+
+      image.removeAttribute("src");
+      image.alt = "";
+      currentGallery = [];
+      currentIndex = 0;
+
+      if (opener && typeof opener.focus === "function") {
+        opener.focus();
+      }
+
+      opener = null;
+    }
+
+    function showPreviousImage() {
+      if (currentGallery.length < 2) {
+        return;
+      }
+
+      currentIndex =
+        (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+
+      renderImage();
+    }
+
+    function showNextImage() {
+      if (currentGallery.length < 2) {
+        return;
+      }
+
+      currentIndex = (currentIndex + 1) % currentGallery.length;
+      renderImage();
+    }
+
+    function getComicGallery(galleryElement) {
+      const buttons = Array.from(
+        galleryElement.querySelectorAll(".gallery-thumb")
+      );
+
+      return buttons
+        .map((button) => {
+          const previewImage = button.querySelector("img");
+
+          return {
+            src:
+              button.dataset.full ||
+              previewImage?.getAttribute("src") ||
+              "",
+            caption:
+              button.dataset.caption ||
+              previewImage?.alt ||
+              ""
+          };
+        })
+        .filter((item) => item.src);
+    }
+
+    function getProjectStartIndex(trigger, clickedElement, gallery) {
+      const clickedImage = clickedElement?.closest?.("img");
+
+      if (!clickedImage) {
+        return 0;
+      }
+
+      const clickedSource = clickedImage.getAttribute("src");
+      const matchedIndex = gallery.images.findIndex(
+        (item) => item.src === clickedSource
+      );
+
+      return matchedIndex >= 0 ? matchedIndex : 0;
+    }
+
+    function openNamedProjectGallery(trigger, clickedElement = null) {
+      const galleryName = trigger.dataset.gallery;
+      const gallery = projectGalleries[galleryName];
+
+      if (!gallery) {
+        console.error(`Project gallery not found: ${galleryName}`);
+        return;
+      }
+
+      openGallery(
+        gallery.images,
+        gallery.title,
+        gallery.description,
+        getProjectStartIndex(trigger, clickedElement, gallery),
+        trigger
+      );
+    }
+
+    document.addEventListener("click", (event) => {
+      const projectTrigger = event.target.closest(".gallery-trigger");
+
+      if (projectTrigger) {
         event.preventDefault();
-        openGallery(trigger.dataset.gallery);
+        openNamedProjectGallery(projectTrigger, event.target);
+        return;
+      }
+
+      const externalGalleryButton = event.target.closest(
+        "[data-gallery-open]"
+      );
+
+      if (externalGalleryButton) {
+        event.preventDefault();
+
+        const galleryId = externalGalleryButton.dataset.galleryOpen;
+        const galleryElement = document.getElementById(galleryId);
+
+        if (!galleryElement) {
+          console.error(`Comic gallery not found: ${galleryId}`);
+          return;
+        }
+
+        openGallery(
+          getComicGallery(galleryElement),
+          "Rocky y Bengala",
+          "Comic preview",
+          0,
+          externalGalleryButton
+        );
+        return;
+      }
+
+      const comicItem = event.target.closest(
+        ".project-gallery .gallery-thumb"
+      );
+
+      if (comicItem) {
+        event.preventDefault();
+
+        const galleryElement = comicItem.closest(".project-gallery");
+        const allItems = Array.from(
+          galleryElement.querySelectorAll(".gallery-thumb")
+        );
+        const selectedIndex = Math.max(0, allItems.indexOf(comicItem));
+
+        openGallery(
+          getComicGallery(galleryElement),
+          "Rocky y Bengala",
+          "Comic preview",
+          selectedIndex,
+          comicItem
+        );
       }
     });
-  });
 
-  galleryNext.addEventListener("click", showNextImage);
-  galleryPrev.addEventListener("click", showPrevImage);
-  galleryClose.addEventListener("click", closeGallery);
-  galleryOverlay.addEventListener("click", closeGallery);
+    document.addEventListener("keydown", (event) => {
+      const projectTrigger = event.target.closest?.(".gallery-trigger");
 
-  document.addEventListener("keydown", (event) => {
-    if (!galleryModal.classList.contains("active")) return;
+      if (
+        projectTrigger &&
+        (event.key === "Enter" || event.key === " ")
+      ) {
+        event.preventDefault();
+        openNamedProjectGallery(projectTrigger, event.target);
+        return;
+      }
 
-    if (event.key === "Escape") closeGallery();
-    if (event.key === "ArrowRight") showNextImage();
-    if (event.key === "ArrowLeft") showPrevImage();
-  });
-});
+      if (!modal.classList.contains("active")) {
+        return;
+      }
+
+      if (event.key === "Escape") {
+        closeGallery();
+      } else if (event.key === "ArrowLeft") {
+        showPreviousImage();
+      } else if (event.key === "ArrowRight") {
+        showNextImage();
+      }
+    });
+
+    closeButton.addEventListener("click", closeGallery);
+    overlay.addEventListener("click", closeGallery);
+    previousButton.addEventListener("click", showPreviousImage);
+    nextButton.addEventListener("click", showNextImage);
+
+    modal.addEventListener(
+      "touchstart",
+      (event) => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      },
+      { passive: true }
+    );
+
+    modal.addEventListener(
+      "touchend",
+      (event) => {
+        if (currentGallery.length < 2) {
+          return;
+        }
+
+        const touch = event.changedTouches[0];
+        const horizontalMovement = touchStartX - touch.clientX;
+        const verticalMovement = touchStartY - touch.clientY;
+
+        if (
+          Math.abs(horizontalMovement) < 50 ||
+          Math.abs(horizontalMovement) <= Math.abs(verticalMovement)
+        ) {
+          return;
+        }
+
+        if (horizontalMovement > 0) {
+          showNextImage();
+        } else {
+          showPreviousImage();
+        }
+      },
+      { passive: true }
+    );
+  }
+
+  /* ========================================
+     GOOGLE ANALYTICS EVENTS
+  ======================================== */
+
+  function initializeAnalyticsEvents() {
+    document.addEventListener("click", (event) => {
+      const trackedElement = event.target.closest("[data-event]");
+
+      if (!trackedElement || typeof window.gtag !== "function") {
+        return;
+      }
+
+      window.gtag("event", trackedElement.dataset.event, {
+        link_text: trackedElement.textContent.trim(),
+        link_url: trackedElement.href || ""
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializePortfolio);
+  } else {
+    initializePortfolio();
+  }
+})();

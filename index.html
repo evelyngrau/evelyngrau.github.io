@@ -80,71 +80,7 @@
 
   <!-- Conservar la ruta original del CSS -->
   <link rel="stylesheet" href="style.css" />
-  <!-- Mobile certificate swipe support -->
-  <style>
-    .certificate-swipe-hint {
-      display: none;
-    }
 
-    @media (max-width: 768px) {
-      .certificates-section .diploma-carousel {
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
-      }
-
-      .certificates-section .diploma-track {
-        display: flex !important;
-        width: 100% !important;
-        max-width: 100%;
-        gap: 0 !important;
-        overflow-x: auto !important;
-        overflow-y: hidden;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior-inline: contain;
-        touch-action: pan-x;
-        transform: none !important;
-        animation: none !important;
-        scrollbar-width: none;
-      }
-
-      .certificates-section .diploma-track::-webkit-scrollbar {
-        display: none;
-      }
-
-      .certificates-section .diploma-slide {
-        flex: 0 0 100% !important;
-        width: 100% !important;
-        min-width: 100% !important;
-        box-sizing: border-box;
-        scroll-snap-align: center;
-        scroll-snap-stop: always;
-      }
-
-      .certificates-section .diploma-slide img {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        max-height: 72vh;
-        margin: 0 auto;
-        object-fit: contain;
-        pointer-events: none;
-        user-select: none;
-        -webkit-user-drag: none;
-      }
-
-      .certificate-swipe-hint {
-        display: block;
-        margin: 0.75rem 0 1rem;
-        text-align: center;
-        font-size: 0.85rem;
-        opacity: 0.75;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -155,7 +91,7 @@
       <a href="#about">About</a>
       <a href="#qa">QA</a>
       <a href="#automation">AI</a>
-  <!--<a href="#creative">Creative</a>-->
+      <a href="#creative">Creative</a>  
       <a href="#certificates">Certificates</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -290,7 +226,13 @@
     
     <!-- PROJECT 2 -->
     <article class="project-card project-card-with-image neon-card">
-      <div class="project-preview">
+      <div
+        class="project-preview gallery-trigger"
+        data-gallery="cypress"
+        role="button"
+        tabindex="0"
+        aria-label="Open Cypress project screenshots"
+      >
         <img
           src="assets/projects/cypress-main.png"
           alt="Cypress Automation Practice preview"
@@ -304,8 +246,8 @@
         tabindex="0"
         aria-label="Open Cypress project screenshots"
       >
-        <img src="assets/projects/cypress-code.png" alt="Cypress code preview" />
-        <img src="assets/projects/cypress-report.png" alt="Cypress report preview" />
+        <img src="assets/projects/cypress-main.png" alt="Cypress code preview" />
+        <img src="assets/projects/cypress-main.png" alt="Cypress report preview" />
         <span>+1</span>
       </div>
 
@@ -331,7 +273,13 @@
 
     <!-- PROJECT 3 -->
     <article class="project-card project-card-with-image neon-card">
-      <div class="project-preview">
+      <div
+        class="project-preview gallery-trigger"
+        data-gallery="postman"
+        role="button"
+        tabindex="0"
+        aria-label="Open Postman project screenshots"
+      >
         <img
           src="assets/projects/postman-main.png"
           alt="Postman API Testing preview"
@@ -345,8 +293,8 @@
         tabindex="0"
         aria-label="Open Postman project screenshots"
       >
-        <img src="assets/projects/postman-collection.png" alt="Postman collection preview" />
-        <img src="assets/projects/postman-response.png" alt="API response preview" />
+        <img src="assets/projects/postman-main.png" alt="Postman collection preview" />
+        <img src="assets/projects/postman-main.png" alt="API response preview" />
         <span>+1</span>
       </div>
 
@@ -439,72 +387,118 @@
       </div>
     </section>
 
-    <!-- CREATIVE WORK 
-    <section id="creative" class="section">
-      <div class="section-title">
-        <p class="eyebrow">Creative Portfolio</p>
-        <h2>Creative Work</h2>
-        <p>
-          A space for comic projects, storytelling, visuals and artistic experiments.
-        </p>
+  
+    
+    <!-- CREATIVE WORK -->
+<section id="creative" class="section creative-section">
+  <div class="section-title">
+    <p class="eyebrow">Creative Portfolio</p>
+    <h2>Creative Work</h2>
+
+    <p>
+      Creative project combining storytelling, visual design and
+      AI-assisted illustration.
+    </p>
+  </div>
+
+  <div class="project-grid creative-grid">
+
+    <article class="project-card creative-card neon-card">
+
+      <!-- GALERÍA DEL CÓMIC -->
+      <div
+        class="project-gallery creative-project-gallery"
+        id="rockyGallery"
+      >
+
+        <!-- PORTADA VISIBLE -->
+        <button
+          class="gallery-thumb creative-cover"
+          data-full="assets/creative/rocky-cover.png"
+          data-caption="Rocky y Bengala — Comic Cover"
+          type="button"
+          aria-label="Open Rocky y Bengala gallery"
+        >
+          <img
+            src="assets/creative/rocky-cover.png"
+            alt="Rocky y Bengala children's comic cover"
+          />
+        </button>
+
+        <!-- IMAGEN 2: OCULTA, PERO APARECE EN LA GALERÍA -->
+        <button
+          class="gallery-thumb"
+          data-full="assets/creative/rocky-cover.png"
+          data-caption="Rocky y Bengala — Comic Preview"
+          type="button"
+          hidden
+        >
+          <img
+            src="assets/creative/rocky-cover.png"
+            alt="Rocky y Bengala comic preview page"
+          />
+        </button>
+
+        <!-- IMAGEN 3: OCULTA, PERO APARECE EN LA GALERÍA -->
+        <button
+          class="gallery-thumb"
+          data-full="assets/creative/rocky-cover.png"
+          data-caption="Rocky y Bengala — Fantasy World"
+          type="button"
+          hidden
+        >
+          <img
+            src="assets/creative/rocky-cover.png"
+            alt="Rocky and Bengala inside the fantasy world"
+          />
+        </button>
+
       </div>
 
-      <div class="project-grid">
-        <article class="project-card neon-card">
-          <p class="project-label">Comic Project</p>
-          <h3>Rodri y Bengala</h3>
+      <p class="project-label">Children’s Comic · In Progress</p>
 
-          <p>
-            Children’s comic project combining fantasy, humor, healthy habits,
-            technology and visual storytelling.
-          </p>
+      <h3>Rocky & Bengala</h3>
 
-          <ul>
-            <li>Character design</li>
-            <li>Story development</li>
-            <li>Comic concept</li>
-            <li>AI-assisted visual exploration</li>
-          </ul>
+      <p>
+        A children’s comic about creativity, friendship and building
+        a healthier relationship with screens.
+      </p>
 
-          <div class="project-tools">
-            <span>Storytelling</span>
-            <span>Comic</span>
-            <span>Creative Direction</span>
-          </div>
+      <ul class="project-checklist">
+        <li>Character and world design</li>
+        <li>Children’s visual storytelling</li>
+        <li>AI-assisted illustration</li>
+        <li>Educational and emotional themes</li>
+      </ul>
 
-          <div class="project-links">
-            <a href="#" target="_blank">View concept</a>
-          </div>
-        </article>
+      <div class="creative-actions">
 
-        <article class="project-card neon-card">
-          <p class="project-label">Gallery</p>
-          <h3>Artistic Experiments</h3>
+        <!-- ABRE LA MISMA GALERÍA -->
+        <button
+          class="button primary creative-view-button"
+          type="button"
+          data-gallery-open="rockyGallery"
+          data-event="view_comic_preview"
+        >
+          View comic preview
+        </button>
 
-          <p>
-            Visual experiments, AI-assisted images, banners, illustrations and creative concepts.
-          </p>
+        <!-- FUTURA COMPRA -->
+        <span
+          class="button secondary creative-buy-disabled"
+          aria-disabled="true"
+        >
+          Buy the comic · Coming soon
+        </span>
 
-          <ul>
-            <li>AI images</li>
-            <li>Visual identity</li>
-            <li>Creative concepts</li>
-          </ul>
-
-          <div class="project-tools">
-            <span>AI Art</span>
-            <span>Design</span>
-            <span>Concepts</span>
-          </div>
-
-          <div class="project-links">
-            <a href="#" target="_blank">View gallery</a>
-          </div>
-        </article>
       </div>
-    </section> -->
 
-    <!-- CERTIFICATES -->
+    </article>
+
+  </div>
+</section>
+
+
   <!-- CERTIFICATES -->
 <section id="certificates" class="section certificates-section">
   <div class="section-title certificates-title">
@@ -642,5 +636,6 @@
   });
 </script>
 <script src="script.js"></script>
+
 </body>
 </html>
